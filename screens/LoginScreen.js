@@ -5,10 +5,12 @@ import {
   TextInput,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
 // Écran de connexion (email / mot de passe)
 export default function LoginScreen({ navigation }) {
@@ -36,34 +38,70 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MovieTracker — Connexion</Text>
-      <TextInput
-        placeholder="Email"
-        placeholderTextColor={theme.border}
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-        autoCapitalize="none"
-      />
-      <TextInput
-        placeholder="Mot de passe"
-        placeholderTextColor={theme.border}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      {loading ? (
-        <ActivityIndicator />
-      ) : (
-        <PrimaryButton title="Se connecter" onPress={handleLogin} />
-      )}
-      <View style={{ height: 12 }} />
-      <PrimaryButton
-        title="Créer un compte"
-        onPress={() => navigation.navigate("Register")}
-      />
+      <View
+        style={[
+          styles.card,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <Text style={[styles.title, { color: theme.text }]}>MovieTracker</Text>
+        <Text style={[styles.subtitle, { color: theme.border }]}>
+          Connectez-vous pour continuer
+        </Text>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="email"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor={theme.border}
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="lock"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Mot de passe"
+            placeholderTextColor={theme.border}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+          />
+        </View>
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
+        <View style={{ marginTop: 8 }}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <PrimaryButton title="Se connecter" onPress={handleLogin} />
+          )}
+        </View>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Register")}
+          style={{ marginTop: 12 }}
+        >
+          <Text style={[styles.link, { color: theme.primary }]}>
+            Créer un compte
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -76,20 +114,35 @@ function createStyles(theme) {
       justifyContent: "center",
       backgroundColor: theme.background,
     },
-    title: {
-      fontSize: 20,
-      marginBottom: 12,
-      textAlign: "center",
-      color: theme.text,
-    },
-    input: {
+    card: {
+      marginHorizontal: 12,
+      padding: 20,
+      borderRadius: 14,
       borderWidth: 1,
-      borderColor: theme.border,
-      padding: 8,
-      marginBottom: 8,
-      borderRadius: 6,
-      color: theme.text,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      elevation: 6,
     },
-    error: { color: "red", marginBottom: 8 },
+    title: {
+      fontSize: 24,
+      fontWeight: "800",
+      textAlign: "center",
+      marginBottom: 4,
+    },
+    subtitle: { fontSize: 13, textAlign: "center", marginBottom: 12 },
+    inputRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      borderWidth: 1,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      marginBottom: 10,
+    },
+    input: { flex: 1, color: theme.text },
+    error: { color: "#ff6b6b", marginBottom: 8, textAlign: "center" },
+    link: { textAlign: "center", fontWeight: "600" },
   });
 }

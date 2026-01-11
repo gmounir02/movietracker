@@ -9,6 +9,7 @@ import {
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
 // Écran d'inscription (email / mot de passe)
 export default function RegisterScreen({ navigation }) {
@@ -38,48 +39,104 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MovieTracker — Inscription</Text>
-      <TextInput
-        placeholder="Prénom"
-        placeholderTextColor={theme.border}
-        value={firstName}
-        onChangeText={setFirstName}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Nom"
-        placeholderTextColor={theme.border}
-        value={lastName}
-        onChangeText={setLastName}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Email"
-        placeholderTextColor={theme.border}
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-        autoCapitalize="none"
-      />
-      <TextInput
-        placeholder="Mot de passe"
-        placeholderTextColor={theme.border}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      {loading ? (
-        <ActivityIndicator />
-      ) : (
-        <PrimaryButton title="S'inscrire" onPress={handleRegister} />
-      )}
-      <View style={{ height: 12 }} />
-      <PrimaryButton
-        title="Déjà un compte ?"
-        onPress={() => navigation.navigate("Login")}
-      />
+      <View
+        style={[
+          styles.card,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <Text style={[styles.title, { color: theme.text }]}>
+          Créer un compte
+        </Text>
+        <Text style={[styles.subtitle, { color: theme.border }]}>
+          Rejoignez MovieTracker
+        </Text>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="person"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Prénom"
+            placeholderTextColor={theme.border}
+            value={firstName}
+            onChangeText={setFirstName}
+            style={styles.input}
+          />
+        </View>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="person-outline"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Nom"
+            placeholderTextColor={theme.border}
+            value={lastName}
+            onChangeText={setLastName}
+            style={styles.input}
+          />
+        </View>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="email"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor={theme.border}
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={[styles.inputRow, { borderColor: theme.border }]}>
+          <MaterialIcons
+            name="lock"
+            size={20}
+            color={theme.border}
+            style={{ marginRight: 8 }}
+          />
+          <TextInput
+            placeholder="Mot de passe"
+            placeholderTextColor={theme.border}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+          />
+        </View>
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
+        <View style={{ marginTop: 8 }}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <PrimaryButton title="S'inscrire" onPress={handleRegister} />
+          )}
+        </View>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Login")}
+          style={{ marginTop: 12 }}
+        >
+          <Text style={[styles.link, { color: theme.primary }]}>
+            Déjà un compte ? Connexion
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -92,20 +149,35 @@ function createStyles(theme) {
       justifyContent: "center",
       backgroundColor: theme.background,
     },
-    title: {
-      fontSize: 20,
-      marginBottom: 12,
-      textAlign: "center",
-      color: theme.text,
-    },
-    input: {
+    card: {
+      marginHorizontal: 12,
+      padding: 20,
+      borderRadius: 14,
       borderWidth: 1,
-      borderColor: theme.border,
-      padding: 8,
-      marginBottom: 8,
-      borderRadius: 6,
-      color: theme.text,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      elevation: 6,
     },
-    error: { color: "red", marginBottom: 8 },
+    title: {
+      fontSize: 22,
+      fontWeight: "800",
+      textAlign: "center",
+      marginBottom: 4,
+    },
+    subtitle: { fontSize: 13, textAlign: "center", marginBottom: 12 },
+    inputRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      borderWidth: 1,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 10,
+      marginBottom: 10,
+    },
+    input: { flex: 1, color: theme.text },
+    error: { color: "#ff6b6b", marginBottom: 8, textAlign: "center" },
+    link: { textAlign: "center", fontWeight: "600" },
   });
 }
