@@ -13,6 +13,8 @@ import { useTheme } from "../context/ThemeContext";
 // Écran d'inscription (email / mot de passe)
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +26,7 @@ export default function RegisterScreen({ navigation }) {
     setLoading(true);
     setError(null);
     try {
-      await register(email.trim(), password);
+      await register(firstName.trim(), lastName.trim(), email.trim(), password);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -37,6 +39,20 @@ export default function RegisterScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>MovieTracker — Inscription</Text>
+      <TextInput
+        placeholder="Prénom"
+        placeholderTextColor={theme.border}
+        value={firstName}
+        onChangeText={setFirstName}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Nom"
+        placeholderTextColor={theme.border}
+        value={lastName}
+        onChangeText={setLastName}
+        style={styles.input}
+      />
       <TextInput
         placeholder="Email"
         placeholderTextColor={theme.border}

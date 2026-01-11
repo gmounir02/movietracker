@@ -8,6 +8,7 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
+import HomeScreen from "./screens/HomeScreen";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
@@ -22,27 +23,43 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function AppTabs() {
+  const { theme } = useTheme();
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor: theme.border,
+        tabBarStyle: {
+          backgroundColor: theme.card,
+          borderTopColor: theme.border,
+        },
+        tabBarIcon: ({ color, size }) => {
+          const name =
+            route.name === "Home"
+              ? "home"
+              : route.name === "Search"
+              ? "search"
+              : "movie";
+          return <MaterialIcons name={name} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: "Accueil" }}
+      />
       <Tab.Screen
         name="Search"
         component={SearchScreen}
-        options={{
-          title: "Search",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="search" size={size} color={color} />
-          ),
-        }}
+        options={{ title: "Rechercher" }}
       />
       <Tab.Screen
         name="MyMovies"
         component={MyMoviesScreen}
-        options={{
-          title: "My Movies",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="movie" size={size} color={color} />
-          ),
-        }}
+        options={{ title: "Mes films" }}
       />
     </Tab.Navigator>
   );
