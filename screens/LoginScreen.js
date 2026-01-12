@@ -133,7 +133,7 @@ function createStyles(theme) {
       textAlign: "center",
       marginBottom: 4,
     },
-    logo: { width: 140, height: 60, alignSelf: "center", marginBottom: 8 },
+    logo: { width: 220, height: 90, alignSelf: "center", marginBottom: 12 },
     subtitle: { fontSize: 13, textAlign: "center", marginBottom: 12 },
     inputRow: {
       flexDirection: "row",
