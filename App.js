@@ -1,4 +1,5 @@
 import ProfileScreen from "./screens/ProfileScreen";
+import SelectGenresScreen from "./screens/SelectGenresScreen";
 import React from "react";
 import { ActivityIndicator, TouchableOpacity, Text, View } from "react-native";
 import {
@@ -82,7 +83,7 @@ function RootNavigator() {
             name="Home"
             component={AppTabs}
             options={({ navigation }) => ({
-              title: "MovieTracker",
+              title: "CineTrack",
               headerRight: () => (
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity
@@ -98,12 +99,6 @@ function RootNavigator() {
                     style={{ marginRight: 12 }}
                   >
                     <Text style={{ color: theme.primary }}>Profil</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={logout}
-                    style={{ marginRight: 12 }}
-                  >
-                    <Text style={{ color: theme.primary }}>Déconnexion</Text>
                   </TouchableOpacity>
                 </View>
               ),
@@ -142,6 +137,13 @@ function RootNavigator() {
           />
         </>
       )}
+        
+      {/* SelectGenres is registered at top-level so it's accessible both before and after auth state changes */}
+      <Stack.Screen
+        name="SelectGenres"
+        component={SelectGenresScreen}
+        options={{ title: "Choisir genres" }}
+      />
     </Stack.Navigator>
   );
 }
