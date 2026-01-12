@@ -1,4 +1,4 @@
-# MovieTracker (Expo + React Native)
+# CineTrack (Expo + React Native)
 
 Application mobile simple pour gérer une collection de films personnelle.
 

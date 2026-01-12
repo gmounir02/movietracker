@@ -5,6 +5,8 @@ import {
   TextInput,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../context/AuthContext";
@@ -45,11 +47,12 @@ export default function RegisterScreen({ navigation }) {
           { backgroundColor: theme.card, borderColor: theme.border },
         ]}
       >
-        <Text style={[styles.title, { color: theme.text }]}>
+        <Image source={require("../assets/cinetrack.png")} style={styles.logo} resizeMode="contain" />
+        <Text style={[styles.title, { color: theme.text }]}> 
           Créer un compte
         </Text>
-        <Text style={[styles.subtitle, { color: theme.border }]}>
-          Rejoignez MovieTracker
+        <Text style={[styles.subtitle, { color: theme.border }]}> 
+          Rejoignez CineTrack
         </Text>
 
         <View style={[styles.inputRow, { borderColor: theme.border }]}>
@@ -166,6 +169,7 @@ function createStyles(theme) {
       textAlign: "center",
       marginBottom: 4,
     },
+    logo: { width: 140, height: 60, alignSelf: "center", marginBottom: 8 },
     subtitle: { fontSize: 13, textAlign: "center", marginBottom: 12 },
     inputRow: {
       flexDirection: "row",

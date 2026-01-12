@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../context/AuthContext";
@@ -44,7 +45,8 @@ export default function LoginScreen({ navigation }) {
           { backgroundColor: theme.card, borderColor: theme.border },
         ]}
       >
-        <Text style={[styles.title, { color: theme.text }]}>MovieTracker</Text>
+        <Image source={require("../assets/cinetrack.png")} style={styles.logo} resizeMode="contain" />
+        <Text style={[styles.title, { color: theme.text }]}>CineTrack</Text>
         <Text style={[styles.subtitle, { color: theme.border }]}>
           Connectez-vous pour continuer
         </Text>
@@ -131,6 +133,7 @@ function createStyles(theme) {
       textAlign: "center",
       marginBottom: 4,
     },
+    logo: { width: 140, height: 60, alignSelf: "center", marginBottom: 8 },
     subtitle: { fontSize: 13, textAlign: "center", marginBottom: 12 },
     inputRow: {
       flexDirection: "row",
@@ -146,3 +149,4 @@ function createStyles(theme) {
     link: { textAlign: "center", fontWeight: "600" },
   });
 }
+

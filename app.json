@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MovieTracker",
-    "slug": "MovieTracker",
+    "name": "CineTrack",
+    "slug": "cinetrack",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
