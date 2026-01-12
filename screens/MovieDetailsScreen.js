@@ -81,6 +81,7 @@ export default function MovieDetailsScreen() {
         poster: details?.Poster || null,
         rating: 0,
         watched: false,
+        genres: details?.Genre ? details.Genre.split(",").map((g) => g.trim()) : [],
         createdAt: serverTimestamp(),
       });
       setIsAdded(true);
